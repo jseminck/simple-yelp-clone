@@ -27,12 +27,11 @@ const environmentEnv = dotenv.config({
 const envVariables = Object.assign({}, dotEnvVars, environmentEnv);
 
 // Replace all usage of __KEY__ (defined in our variables file) in our code-base.
-const defines = Object.keys(envVariables)
-    .reduce((memo, key) => {
-        const val = JSON.stringify(envVariables[key]);
-        memo[`__${key.toUpperCase()}__`] = val;
-        return memo;
-    }, {__NODE_ENV__: JSON.stringify(NODE_ENV)});
+const defines = Object.keys(envVariables).reduce((memo, key) => {
+    const val = JSON.stringify(envVariables[key]);
+    memo[`__${key.toUpperCase()}__`] = val;
+    return memo;
+}, {__NODE_ENV__: JSON.stringify(NODE_ENV)});
 
 // Configure webpack
 var config = getConfig({
@@ -52,6 +51,6 @@ config.postcss = [].concat([
   require('cssnano')({})
 ]);
 
-configureCssModules(config, isDev, src);
+config = configureCssModules(config, isDev, src, modules);
 
 module.exports = config;

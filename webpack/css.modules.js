@@ -1,4 +1,4 @@
-module.exports = function configureCssModules(config, isDev, src) {
+module.exports = function configureCssModules(config, isDev, src, modules) {
     const cssModulesNames = `${isDev ? '[path][name]__[local]__' : ''}[hash:base64:5]`;
     const matchCssLoaders = /(^|!)(css-loader)($|!)/;
     const cssloader = findLoader(config.module.loaders, matchCssLoaders);
@@ -12,6 +12,12 @@ module.exports = function configureCssModules(config, isDev, src) {
     config.module.loaders.push(newloader);
     cssloader.test = new RegExp(`[^module]${cssloader.test.source}`)
     cssloader.loader = newloader.loader;
+
+    config.module.loaders.push({
+        test: /\.css$/,
+        include: [modules],
+        loader: 'style!css'
+    });
 
     return config;
 };
