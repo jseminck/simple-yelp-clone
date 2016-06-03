@@ -7,7 +7,7 @@ const App = React.createClass({
     render: function() {
         return (
             <div className={styles.wrapper}>
-                Text text text ... !
+                <h1>Environment: {__GAPI_KEY__}</h1>
             </div>
         );
     }
