@@ -51,6 +51,15 @@ config.postcss = [].concat([
   require('cssnano')({})
 ]);
 
+// Relative paths
+config.resolve.root = [src, modules]
+config.resolve.alias = {
+  'css': join(src, 'styles'),
+  'containers': join(src, 'containers'),
+  'components': join(src, 'components'),
+  'utils': join(src, 'utils')
+}
+
 config = configureCssModules(config, isDev, src, modules);
 
 module.exports = config;
