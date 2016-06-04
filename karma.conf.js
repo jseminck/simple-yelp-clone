@@ -1,4 +1,5 @@
 const webpackConfig = require('./webpack.config');
+const argv = require('yargs').argv
 
 // Karma configuration
 // Generated on Fri Jun 03 2016 20:14:04 GMT+0300 (EEST)
@@ -71,6 +72,7 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+    singleRun: !argv.watch
   })
 }
