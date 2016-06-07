@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "components/Header";
+import Sidebar from "components/Sidebar";
 import Map, {GoogleApiWrapper} from "google-maps-react";
 import {searchNearby} from "utils/google/apiHelpers";
 
@@ -30,10 +31,12 @@ export class Container extends React.Component {
                     visible={false}
                 >
                     <Header />
+                    <Sidebar
+                        title="Restaurants"
+                        places={this.state.places}
+                    />
                     <div className={styles.content}>
-                        {this.state.places.map(place => {
-                            return (<div key={place.id}>{place.name}</div>);
-                        })}
+
                     </div>
                 </Map>
             </div>
