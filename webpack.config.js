@@ -1,8 +1,11 @@
+"use strict";
+
 require("babel-register");
 
 const webpack = require("webpack");
 const path = require("path");
-const {join, resolve} = path;
+const join = path.join;
+const resolve = path.resolve;
 const dotenv = require("dotenv");
 const getConfig = require("hjs-webpack");
 

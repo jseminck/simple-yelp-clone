@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router";
 
-import styles from "styles/Header.styles";
+import styles from "styles/Header.css";
 
 export class Header extends React.Component {
     render() {
