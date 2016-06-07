@@ -1,7 +1,7 @@
 import React from "react";
 import {Router} from "react-router";
 
-import styles from "./styles.module.css";
+import "styles/app.css";
 import "font-awesome/css/font-awesome.css";
 
 module.exports = class App extends React.Component {
@@ -21,7 +21,7 @@ module.exports = class App extends React.Component {
 
     render() {
         return (
-            <div className={styles.wrapper}>
+            <div>
                 {this.content}
             </div>
         );
