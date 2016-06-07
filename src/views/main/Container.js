@@ -25,7 +25,6 @@ export class Container extends React.Component {
     render() {
         return (
             <div>
-                Hello from the container
                 <Map
                     google={this.props.google}
                     onReady={::this.onReady}
