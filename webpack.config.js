@@ -1,29 +1,27 @@
-require('babel-register');
+require("babel-register");
 
-const webpack = require('webpack');
-const fs      = require('fs');
-const path    = require('path'),
-      join    = path.join,
-      resolve = path.resolve;
-const dotenv = require('dotenv');
-const getConfig = require('hjs-webpack');
+const webpack = require("webpack");
+const path = require("path");
+const {join, resolve} = path;
+const dotenv = require("dotenv");
+const getConfig = require("hjs-webpack");
 
-const configureCssModules = require('./webpack/css.modules');
+const configureCssModules = require("./webpack/css.modules");
 
 // Source paths
-const root    = resolve(__dirname);
-const src     = join(root, 'src');
-const modules = join(root, 'node_modules');
-const dest    = join(root, 'dist');
+const root = resolve(__dirname);
+const src = join(root, "src");
+const modules = join(root, "node_modules");
+const dest = join(root, "dist");
 
 // Environment and variables
 const NODE_ENV = process.env.NODE_ENV;
-const isDev = NODE_ENV === 'development';
-const isTest = NODE_ENV === 'test';
+const isDev = NODE_ENV === "development";
+const isTest = NODE_ENV === "test";
 
 const dotEnvVars = dotenv.config();
 const environmentEnv = dotenv.config({
-    path: join(root, 'config', `${NODE_ENV}.config.js`),
+    path: join(root, "config", `${NODE_ENV}.config.js`),
     silent: true,
 });
 
@@ -37,9 +35,9 @@ const defines = Object.keys(envVariables).reduce((memo, key) => {
 }, {__NODE_ENV__: JSON.stringify(NODE_ENV)});
 
 // Configure webpack
-var config = getConfig({
+let config = getConfig({
     isDev: isDev,
-    in: join(src, 'app.js'),
+    in: join(src, "app.js"),
     out: dest,
     clearBeforeBuild: true
 });
@@ -49,36 +47,36 @@ config.plugins = [new webpack.DefinePlugin(defines)].concat(config.plugins);
 
 // Add precss, autoprefixer and cssnano to postcss
 config.postcss = [].concat([
-    require('precss')({}),
-    require('autoprefixer')({}),
-    require('cssnano')({})
+    require("precss")({}),
+    require("autoprefixer")({}),
+    require("cssnano")({})
 ]);
 
 // Relative paths
-config.resolve.root = [src, modules]
+config.resolve.root = [src, modules];
 config.resolve.alias = {
-    'css': join(src, 'styles'),
-    'containers': join(src, 'containers'),
-    'components': join(src, 'components'),
-    'utils': join(src, 'utils')
-}
+    "css": join(src, "styles"),
+    "containers": join(src, "containers"),
+    "components": join(src, "components"),
+    "utils": join(src, "utils")
+};
 
 // Tests
 
 if (isTest) {
     config.externals = {
-        'react/lib/ReactContext': true,
-        'react/lib/ExecutionEnvironment': true,
-        'react/addons': true
-    }
+        "react/lib/ReactContext": true,
+        "react/lib/ExecutionEnvironment": true,
+        "react/addons": true
+    };
 
     config.plugins = config.plugins.filter(p => {
         const name = p.constructor.toString();
-        const fnName = name.match(/^function (.*)\((.*\))/)
+        const fnName = name.match(/^function (.*)\((.*\))/);
 
-        const idx = ['DedupePlugin','UglifyJsPlugin'].indexOf(fnName[1]);
+        const idx = ["DedupePlugin", "UglifyJsPlugin"].indexOf(fnName[1]);
         return idx < 0;
-    })
+    });
 }
 
 config = configureCssModules(config, isDev, src, modules);

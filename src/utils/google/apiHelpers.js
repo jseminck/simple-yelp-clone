@@ -8,10 +8,10 @@ export function searchNearby(google, map, request) {
         const service = new google.maps.places.PlacesService(map);
 
         service.nearbySearch(request, (results, status, pagination) => {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
                 resolve(results, pagination);
-            } else {
+            }
+            else {
                 reject(results, status);
             }
         });

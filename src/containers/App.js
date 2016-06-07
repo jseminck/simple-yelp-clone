@@ -1,8 +1,8 @@
-import React from 'react';
-import { Router } from 'react-router';
+import React from "react";
+import {Router} from "react-router";
 
-import styles from './styles.module.css';
-import 'font-awesome/css/font-awesome.css';
+import styles from "./styles.module.css";
+import "font-awesome/css/font-awesome.css";
 
 module.exports = class App extends React.Component {
     static propTypes = {
@@ -16,7 +16,7 @@ module.exports = class App extends React.Component {
                 routes={this.props.routes}
                 history={this.props.history}
             />
-        )
+        );
     }
 
     render() {

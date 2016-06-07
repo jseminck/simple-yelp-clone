@@ -1,7 +1,7 @@
-import React from 'react';
-import Header from 'components/Header';
-import Map, { GoogleApiWrapper } from 'google-maps-react';
-import { searchNearby } from 'utils/google/apiHelpers';
+import React from "react";
+import Header from "components/Header";
+import Map, {GoogleApiWrapper} from "google-maps-react";
+import {searchNearby} from "utils/google/apiHelpers";
 
 export class Container extends React.Component {
     static propTypes = {
@@ -14,7 +14,7 @@ export class Container extends React.Component {
         this.state = {
             places: [],
             pagination: null
-        }
+        };
     }
 
     render() {
@@ -28,7 +28,7 @@ export class Container extends React.Component {
                 >
                     <Header />
                     {this.state.places.map(place => {
-                        return (<div key={place.id}>{place.name}</div>)
+                        return (<div key={place.id}>{place.name}</div>);
                     })}
                 </Map>
             </div>
@@ -38,9 +38,9 @@ export class Container extends React.Component {
     onReady(mapProps, map) {
         const opts = {
             location: map.center,
-            radius: '500',
-            types: ['cafe']
-        }
+            radius: "500",
+            types: ["cafe"]
+        };
 
         searchNearby(this.props.google, map, opts)
             .then((results, pagination) => {
@@ -50,9 +50,9 @@ export class Container extends React.Component {
                 });
             })
             .catch((status, result) => {
-                // There was an error
+                console.log("status and result", status, result); // eslint-disable-line no-console
             });
     }
 }
 
-export default GoogleApiWrapper({apiKey: __GAPI_KEY__})(Container);
+export default GoogleApiWrapper({apiKey: __GAPI_KEY__})(Container); // eslint-disable-line no-undef

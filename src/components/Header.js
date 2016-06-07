@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from "react";
+import {Link} from "react-router";
 
 export class Header extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export class Header extends React.Component {
                     Fullstack.io
                 </section>
             </div>
-        )
+        );
     }
 }
 
