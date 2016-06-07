@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
-// import Rating from "components/Rating/Rating";
+import Rating from "components/Rating";
 import styles from "styles/Listing.css";
 
 export class ListingItem extends React.Component {
@@ -16,6 +16,7 @@ export class ListingItem extends React.Component {
                 <span>
                     {this.props.place.rating / 5}
                 </span>
+                <Rating className={styles.rating} percentage={(this.props.place.rating / 5)} />
             </div>
         );
     }
