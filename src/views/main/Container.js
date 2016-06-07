@@ -8,7 +8,9 @@ import styles from "styles/Main.css";
 
 export class Container extends React.Component {
     static propTypes = {
-        google: React.PropTypes.object
+        google: React.PropTypes.object,
+        loaded: React.PropTypes.bool,
+        children: React.PropTypes.any
     };
 
     constructor(props) {
@@ -36,10 +38,25 @@ export class Container extends React.Component {
                         places={this.state.places}
                     />
                     <div className={styles.content}>
-
+                        {/* Setting children routes to be rendered*/}
+                        {this.getChildren()}
                     </div>
                 </Map>
             </div>
+        );
+    }
+
+    getChildren() {
+        if (!this.props.children) {
+            return null;
+        }
+        // We have children in the Container component
+        return React.cloneElement(
+            this.props.children, {
+                google: this.props.google,
+                places: this.state.places,
+                loaded: this.props.loaded
+            }
         );
     }
 
