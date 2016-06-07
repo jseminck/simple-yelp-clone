@@ -1,13 +1,14 @@
 import React from "react";
 import classnames from "classnames";
-import Map, { Marker } from "google-maps-react";
+import Map, {Marker} from "google-maps-react";
 
 import styles from "styles/Map.css";
 
 export class MapComponent extends React.Component {
     static propTypes = {
         google: React.PropTypes.object.isRequired,
-        places: React.PropTypes.array.isRequired
+        places: React.PropTypes.array.isRequired,
+        onMarkerClick: React.PropTypes.func.isRequired
     }
 
     render() {
@@ -33,6 +34,7 @@ export class MapComponent extends React.Component {
                     name={place.id}
                     place={place}
                     position={place.geometry.location}
+                    onClick={this.props.onMarkerClick}
                 />
             );
         });

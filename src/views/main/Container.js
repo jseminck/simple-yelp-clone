@@ -54,9 +54,14 @@ export class Container extends React.Component {
             this.props.children, {
                 google: this.props.google,
                 places: this.state.places,
-                loaded: this.props.loaded
+                loaded: this.props.loaded,
+                onMarkerClick: ::this.onMarkerClick
             }
         );
+    }
+
+    onMarkerClick(item) {
+        this.context.router.push(`/map/detail/${item.place.place_id}`);
     }
 
     onReady(mapProps, map) {
@@ -78,5 +83,9 @@ export class Container extends React.Component {
             });
     }
 }
+
+Container.contextTypes = {
+    router: React.PropTypes.object
+};
 
 export default GoogleApiWrapper({apiKey: __GAPI_KEY__})(Container); // eslint-disable-line no-undef
